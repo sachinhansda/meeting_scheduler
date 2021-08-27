@@ -21,6 +21,16 @@ struct meeting
   struct time start_time, end_time;
 };
 
+void book(int organiser_id, struct time start_time, struct end_time)
+{
+
+}
+
+void cancel(int employee_id, int meeting_id)
+{
+
+}
+
 int main()
 {
   return 0;
