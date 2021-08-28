@@ -19,7 +19,8 @@ struct employee
 
 struct meeting
 {
-  int meeting_id, organiser_id, room_no;
+  long meeting_id;
+  int organiser_id, room_no;
   struct time start_time, end_time;
 } *meetings;
 
@@ -61,7 +62,7 @@ void book(int organiser_id, struct time start_time, struct time end_time)
     {
       if(free_rooms[i]==0)
       {
-        meetings[meeting_size].meeting_id = meeting_size;
+        meetings[meeting_size].meeting_id = (1000000 * start_time.hour) + (10000 * start_time.minutes) + (100 * end_time.hour) + end_time.minutes;
         meetings[meeting_size].organiser_id = organiser_id;
         meetings[meeting_size].room_no = i;
         meetings[meeting_size].start_time.hour = start_time.hour;
@@ -106,9 +107,12 @@ void cancel(int employee_id, int meeting_id)
 int main()
 {
   struct time stime;
+  long id;
   char c;
   meeting_size = 0;
   scanf("%d %c %d", &stime.hour, &c, &stime.minutes);
+  id = ( 100 * stime.hour ) + stime.minutes;
   printf("%d hours %d minutes\n", stime.hour, stime.minutes);
+  printf("id - %li\n", id);
   return 0;
 }
