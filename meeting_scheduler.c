@@ -40,13 +40,13 @@ void book(int organiser_id, struct time start_time, struct time end_time)
     meeting_end_time = (meetings[i].end_time.hour * 60) + (meetings[i].end_time.minutes);
     if(meeting_start_time <= proposed_meeting_start_time && proposed_meeting_start_time <= meeting_end_time)
     {
-      free_rooms[meetings.room_no] = 1;
+      free_rooms[meetings[i].room_no] = 1;
       free_room_cnt--;
       organiser_available = 0;
     }
     else if(meeting_start_time <= proposed_meeting_end_time && proposed_meeting_end_time <= meeting_end_time)
     {
-      free_rooms[meetings.room_no] = 1;
+      free_rooms[meetings[i].room_no] = 1;
       free_room_cnt--;
       organiser_available = 0;
     }
