@@ -25,7 +25,25 @@ struct meeting
 
 void book(int organiser_id, struct time start_time, struct time end_time)
 {
-  int i,size,free_rooms[M];
+  int i,size,free_rooms[M], free_room_cnt, proposed_meeting_start_time, proposed_meeting_end_time, meeting_start_time, meeting_end_time;
+  proposed_meeting_start_time = (start_time.hour * 60) + (start_time.minutes);
+  proposed_meeting_end_time = (end_time.hour * 60) + (end_time.minutes);
+  free_room_cnt = M;
+  for(i=0; i<meeting_size; i++)
+  {
+    meeting_start_time = (meetings[i].start_time.hour * 60) + (meetings[i].start_time.minutes);
+    meeting_end_time = (meetings[i].end_time.hour * 60) + (meetings[i].end_time.minutes);
+    if(meeting_start_time <= proposed_meeting_start_time && proposed_meeting_start_time <= meeting_end_time)
+    {
+      free_rooms[meetings.room_no] = 1;
+      free_room_cnt--;
+    }
+    else if(meeting_start_time <= proposed_meeting_end_time && proposed_meeting_end_time <= meeting_end_time)
+    {
+      free_rooms[meetings.room_no] = 1;
+      free_room_cnt--;
+    }
+  }
   for(i=0; i<M; i++)
   {
     if(free_rooms[i]==0)
@@ -66,6 +84,7 @@ void cancel(int employee_id, int meeting_id)
         meetings[i].end_time.minutes = meetings[meeting_size].end_time.minutes;
         meeting_size--;
         printf("Success, meeting canceled");
+        break;
       }
     }
   }
