@@ -73,5 +73,6 @@ void cancel(int employee_id, int meeting_id)
 
 int main()
 {
+  meeting_size = 0;
   return 0;
 }
