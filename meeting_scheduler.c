@@ -25,7 +25,7 @@ struct meeting
 
 void book(int organiser_id, struct time start_time, struct time end_time)
 {
-  int i,size,free_rooms[M], organiser_available, free_room_cnt, proposed_meeting_start_time, proposed_meeting_end_time, meeting_start_time, meeting_end_time;
+  int i,free_rooms[M], organiser_available, free_room_cnt, proposed_meeting_start_time, proposed_meeting_end_time, meeting_start_time, meeting_end_time;
   proposed_meeting_start_time = (start_time.hour * 60) + (start_time.minutes);
   proposed_meeting_end_time = (end_time.hour * 60) + (end_time.minutes);
   free_room_cnt = M;
@@ -61,14 +61,14 @@ void book(int organiser_id, struct time start_time, struct time end_time)
     {
       if(free_rooms[i]==0)
       {
-        meetings[meeting_size].meeting_id = size;
+        meetings[meeting_size].meeting_id = meeting_size;
         meetings[meeting_size].organiser_id = organiser_id;
         meetings[meeting_size].room_no = i;
         meetings[meeting_size].start_time.hour = start_time.hour;
         meetings[meeting_size].start_time.minutes = start_time.minutes;
         meetings[meeting_size].end_time.hour = end_time.hour;
         meetings[meeting_size].end_time.minutes = end_time.minutes;
-        printf("Employee %d: (%d:%d - %d:%d at Room %d) success\n",  meetings[size].organiser_id, meetings[size].start_time.hour, meetings[size].start_time.minutes, meetings[size].end_time.hour, meetings[size].end_time.minutes, meetings[size].room_no);
+        printf("Employee %d: (%d:%d - %d:%d at Room %d) success\n",  meetings[meeting_size].organiser_id, meetings[meeting_size].start_time.hour, meetings[meeting_size].start_time.minutes, meetings[meeting_size].end_time.hour, meetings[meeting_size].end_time.minutes, meetings[meeting_size].room_no);
         break;
       }
     }
@@ -77,8 +77,7 @@ void book(int organiser_id, struct time start_time, struct time end_time)
 
 void cancel(int employee_id, int meeting_id)
 {
-  int i, size;
-  size = sizeof(meetings)/sizeof(struct meeting);
+  int i;
   for(i=0; i<meeting_size; i++)
   {
     if(meetings[i].meeting_id == meeting_id)
@@ -106,6 +105,10 @@ void cancel(int employee_id, int meeting_id)
 
 int main()
 {
+  struct time stime;
+  char c;
   meeting_size = 0;
+  scanf("%d %c %d", &stime.hour, &c, &stime.minutes);
+  printf("%d hours %d minutes\n", stime.hour, stime.minutes);
   return 0;
 }
