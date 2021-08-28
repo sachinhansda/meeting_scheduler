@@ -25,10 +25,11 @@ struct meeting
 
 void book(int organiser_id, struct time start_time, struct time end_time)
 {
-  int i,size,free_rooms[M], free_room_cnt, proposed_meeting_start_time, proposed_meeting_end_time, meeting_start_time, meeting_end_time;
+  int i,size,free_rooms[M], organiser_available, free_room_cnt, proposed_meeting_start_time, proposed_meeting_end_time, meeting_start_time, meeting_end_time;
   proposed_meeting_start_time = (start_time.hour * 60) + (start_time.minutes);
   proposed_meeting_end_time = (end_time.hour * 60) + (end_time.minutes);
   free_room_cnt = M;
+  organiser_available = 1;
   for(i=0; i<meeting_size; i++)
   {
     meeting_start_time = (meetings[i].start_time.hour * 60) + (meetings[i].start_time.minutes);
@@ -37,18 +38,20 @@ void book(int organiser_id, struct time start_time, struct time end_time)
     {
       free_rooms[meetings.room_no] = 1;
       free_room_cnt--;
+      organiser_available = 0;
     }
     else if(meeting_start_time <= proposed_meeting_end_time && proposed_meeting_end_time <= meeting_end_time)
     {
       free_rooms[meetings.room_no] = 1;
       free_room_cnt--;
+      organiser_available = 0;
     }
   }
-  if(free_room_cnt == 0)
+  if(free_room_cnt == 0 || organiser_available == 0)
   {
     printf("Meeting booking failed\n");
   }
-  else if(free_room_cnt > 0)
+  else if(free_room_cnt > 0 && organiser_available == 1)
   {
     for(i=0; i<M; i++)
     {
