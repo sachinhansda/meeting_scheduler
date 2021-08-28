@@ -44,19 +44,26 @@ void book(int organiser_id, struct time start_time, struct time end_time)
       free_room_cnt--;
     }
   }
-  for(i=0; i<M; i++)
+  if(free_room_cnt == 0)
   {
-    if(free_rooms[i]==0)
+    printf("Meeting booking failed\n");
+  }
+  else if(free_room_cnt > 0)
+  {
+    for(i=0; i<M; i++)
     {
-      meetings[meeting_size].meeting_id = size;
-      meetings[meeting_size].organiser_id = organiser_id;
-      meetings[meeting_size].room_no = i;
-      meetings[meeting_size].start_time.hour = start_time.hour;
-      meetings[meeting_size].start_time.minutes = start_time.minutes;
-      meetings[meeting_size].end_time.hour = end_time.hour;
-      meetings[meeting_size].end_time.minutes = end_time.minutes;
-      printf("Employee %d: (%d:%d - %d:%d at Room %d) success\n",  meetings[size].organiser_id, meetings[size].start_time.hour, meetings[size].start_time.minutes, meetings[size].end_time.hour, meetings[size].end_time.minutes, meetings[size].room_no);
-      break;
+      if(free_rooms[i]==0)
+      {
+        meetings[meeting_size].meeting_id = size;
+        meetings[meeting_size].organiser_id = organiser_id;
+        meetings[meeting_size].room_no = i;
+        meetings[meeting_size].start_time.hour = start_time.hour;
+        meetings[meeting_size].start_time.minutes = start_time.minutes;
+        meetings[meeting_size].end_time.hour = end_time.hour;
+        meetings[meeting_size].end_time.minutes = end_time.minutes;
+        printf("Employee %d: (%d:%d - %d:%d at Room %d) success\n",  meetings[size].organiser_id, meetings[size].start_time.hour, meetings[size].start_time.minutes, meetings[size].end_time.hour, meetings[size].end_time.minutes, meetings[size].room_no);
+        break;
+      }
     }
   }
 }
