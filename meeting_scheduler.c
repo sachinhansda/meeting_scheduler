@@ -30,6 +30,10 @@ void book(int organiser_id, struct time start_time, struct time end_time)
   proposed_meeting_end_time = (end_time.hour * 60) + (end_time.minutes);
   free_room_cnt = M;
   organiser_available = 1;
+  for(i=0; i<M; i++)
+  {
+    free_rooms[i] = 0;
+  }
   for(i=0; i<meeting_size; i++)
   {
     meeting_start_time = (meetings[i].start_time.hour * 60) + (meetings[i].start_time.minutes);
