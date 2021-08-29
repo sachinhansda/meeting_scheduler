@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<time.h>
 
-const int M = 1;
+const int M = 2;
 const int N = 5;
 
 int meeting_size;
@@ -47,13 +47,15 @@ void book(int organiser_id, struct time start_time, struct time end_time)
       {
         free_rooms[meetings[i].room_no] = 1;
         free_room_cnt--;
-        organiser_available = 0;
+        if(organiser_id == meetings[i].organiser_id)
+          organiser_available = 0;
       }
       else if(meeting_start_time <= proposed_meeting_end_time && proposed_meeting_end_time <= meeting_end_time)
       {
         free_rooms[meetings[i].room_no] = 1;
         free_room_cnt--;
-        organiser_available = 0;
+        if(organiser_id == meetings[i].organiser_id)
+          organiser_available = 0;
       }
     }
   }
