@@ -28,7 +28,6 @@ struct meeting meetings[48*M];
 
 void book(int organiser_id, struct time start_time, struct time end_time)
 {
-  printf("checkpoint 1\n");
   int i,free_rooms[M], organiser_available, free_room_cnt, proposed_meeting_start_time, proposed_meeting_end_time, meeting_start_time, meeting_end_time;
   proposed_meeting_start_time = (start_time.hour * 60) + (start_time.minutes);
   proposed_meeting_end_time = (end_time.hour * 60) + (end_time.minutes);
@@ -38,14 +37,11 @@ void book(int organiser_id, struct time start_time, struct time end_time)
   {
     free_rooms[i] = 0;
   }
-  printf("checkpoint 2\n");
   if(meeting_size>0)
   {
     for(i=0; i<meeting_size; i++)
     {
-      printf("checkpoint 3\n");
       meeting_start_time = (meetings[i].start_time.hour * 60) + (meetings[i].start_time.minutes);
-      printf("checkpoint 4\n");
       meeting_end_time = (meetings[i].end_time.hour * 60) + (meetings[i].end_time.minutes);
       if(meeting_start_time <= proposed_meeting_start_time && proposed_meeting_start_time <= meeting_end_time)
       {
@@ -71,19 +67,16 @@ void book(int organiser_id, struct time start_time, struct time end_time)
     {
       if(free_rooms[i]==0)
       {
-        printf("checkpoint 5\n");
         printf("%d\n", meeting_size);
-        printf("checkpoint 6\n");
         meetings[meeting_size].meeting_id = (1000000 * start_time.hour) + (10000 * start_time.minutes) + (100 * end_time.hour) + end_time.minutes;
-        printf("checkpoint 7\n");
         meetings[meeting_size].organiser_id = organiser_id;
         meetings[meeting_size].room_no = i;
         meetings[meeting_size].start_time.hour = start_time.hour;
         meetings[meeting_size].start_time.minutes = start_time.minutes;
         meetings[meeting_size].end_time.hour = end_time.hour;
         meetings[meeting_size].end_time.minutes = end_time.minutes;
-        meeting_size++;
         printf("Employee %d: (%d:%d - %d:%d at Room %d) success\n",  meetings[meeting_size].organiser_id, meetings[meeting_size].start_time.hour, meetings[meeting_size].start_time.minutes, meetings[meeting_size].end_time.hour, meetings[meeting_size].end_time.minutes, meetings[meeting_size].room_no);
+        meeting_size++;
         break;
       }
     }
