@@ -103,15 +103,15 @@ void cancel(int employee_id, long meeting_id)
       }
       else
       {
-        meetings[i].meeting_id = meetings[meeting_size].meeting_id;
-        meetings[i].organiser_id = meetings[meeting_size].organiser_id;
-        meetings[i].room_no = meetings[meeting_size].room_no;
-        meetings[i].start_time.hour = meetings[meeting_size].start_time.hour;
-        meetings[i].start_time.minutes = meetings[meeting_size].start_time.minutes;
-        meetings[i].end_time.hour = meetings[meeting_size].end_time.hour;
-        meetings[i].end_time.minutes = meetings[meeting_size].end_time.minutes;
+        meetings[i].meeting_id = meetings[meeting_size-1].meeting_id;
+        meetings[i].organiser_id = meetings[meeting_size-1].organiser_id;
+        meetings[i].room_no = meetings[meeting_size-1].room_no;
+        meetings[i].start_time.hour = meetings[meeting_size-1].start_time.hour;
+        meetings[i].start_time.minutes = meetings[meeting_size-1].start_time.minutes;
+        meetings[i].end_time.hour = meetings[meeting_size-1].end_time.hour;
+        meetings[i].end_time.minutes = meetings[meeting_size-1].end_time.minutes;
         meeting_size--;
-        printf("Success, meeting canceled");
+        printf("Success, meeting canceled\n");
         break;
       }
     }
@@ -123,7 +123,7 @@ void show()
   int i;
   if(meeting_size==0)
   {
-    printf("There is meeting scheduled\n");
+    printf("There is no meeting scheduled\n");
   }
   else if(meeting_size>0)
   {
@@ -143,7 +143,7 @@ int main()
   struct time stime, etime;
   long id;
   char c;
-  int choice;
+  int choice, eid;
   meeting_size = 0;
   do {
     printf("Enter\n1 to book a meeting\n2 to cancel a meeting\n3 to show all meetings\n0 to exit\n");
@@ -151,15 +151,19 @@ int main()
     switch (choice) {
       case 0: printf("Exiting the app\n");
               break;
-      case 1: printf("Enter meeting start time\n");
+      case 1: printf("Enter employee id\n");
+              scanf("%d", &eid);
+              printf("Enter meeting start time\n");
               scanf("%d %c %d", &stime.hour, &c, &stime.minutes);
               printf("Enter meeting end time\n");
               scanf("%d %c %d", &etime.hour, &c, &etime.minutes);
-              book(1,stime,etime);
+              book(eid,stime,etime);
               break;
-      case 2: printf("Enter meeting id\n");
+      case 2: printf("Enter employee id\n");
+              scanf("%d", &eid);
+              printf("Enter meeting id\n");
               scanf("%li", &id);
-              cancel(1,id);
+              cancel(eid,id);
               break;
       case 3: show();
               break;
