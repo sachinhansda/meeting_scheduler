@@ -76,7 +76,7 @@ void book(int organiser_id, struct time start_time, struct time end_time)
   }
 }
 
-void cancel(int employee_id, int meeting_id)
+void cancel(int employee_id, long meeting_id)
 {
   int i;
   for(i=0; i<meeting_size; i++)
@@ -106,7 +106,7 @@ void cancel(int employee_id, int meeting_id)
 
 int main()
 {
-  struct time stime;
+  struct time stime, etime;
   long id;
   char c;
   int choice;
@@ -115,9 +115,21 @@ int main()
   id = ( 100 * stime.hour ) + stime.minutes;
   printf("%d hours %d minutes\n", stime.hour, stime.minutes);
   printf("id - %li\n", id);
-  printf("Enter\n
-          1 to book a meeting\n
-          2 to cancel a meeting\n");
+  printf("Enter\n1 to book a meeting\n2 to cancel a meeting\n");
   scanf("%d", &choice);
+  switch (choice) {
+    case 1: printf("Enter meeting start time\n");
+            scanf("%d %c %d", &stime.hour, &c, &stime.minutes);
+            printf("Enter meeting end time\n");
+            scanf("%d %c %d", &etime.hour, &c, &etime.minutes);
+            book(1,stime,etime);
+            break;
+    case 2: printf("Enter meeting id\n");
+            scanf("%li", id);
+            cancel(1,id);
+            break;
+    default:printf("Invalid Choice\n");
+            break;
+  }
   return 0;
 }
