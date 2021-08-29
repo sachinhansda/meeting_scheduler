@@ -109,10 +109,15 @@ int main()
   struct time stime;
   long id;
   char c;
+  int choice;
   meeting_size = 0;
   scanf("%d %c %d", &stime.hour, &c, &stime.minutes);
   id = ( 100 * stime.hour ) + stime.minutes;
   printf("%d hours %d minutes\n", stime.hour, stime.minutes);
   printf("id - %li\n", id);
+  printf("Enter\n
+          1 to book a meeting\n
+          2 to cancel a meeting\n");
+  scanf("%d", &choice);
   return 0;
 }
